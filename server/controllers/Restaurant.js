@@ -1,7 +1,8 @@
+const fetch = require('node-fetch');
 const models = require('../models');
 
 const { Restaurant } = models;
-const fetch = require('node-fetch');
+
 
 class Url {
   constructor(entityId, q, start) {
