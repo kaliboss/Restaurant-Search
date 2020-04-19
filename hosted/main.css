@@ -1,0 +1,117 @@
+/* .myheader grabbed from Bootstrap's jumbotron example - https://getbootstrap.com/docs/4.0/examples/jumbotron/ */
+		.myheader{
+			background-color: white;
+			padding-left: 2rem;
+			border-bottom: 1px solid black;
+		}
+		
+		input.form-control{
+			display: inline-block;
+			margin-right:1rem;
+		}
+		
+		select.form-control{
+			display: inline-block;
+			margin-right:1rem;
+		}
+		.search-row{
+			padding-top:1rem;
+			margin-bottom:1rem;
+			padding-bottom:1rem;
+			background-color: white;
+		}
+		
+		.display-5{
+			display: inline;
+		}
+		
+		.topLinks:link, .topLinks:visited{
+			margin-left: 20%;
+			text-decoration: none;
+			color: black;
+			font-size: 1.2em;
+			background: linear-gradient(0deg, currentcolor, currentcolor) bottom center no-repeat;
+			background-size: 0px 3px;
+			transition: 0.5s;
+		}
+		
+		.topLinks:hover {
+			background-size: 100% 3px;
+		}
+		
+		#app{
+			background-color: #e9ecef;
+		}
+		
+		.container{
+			background-color: white;
+		}
+		
+		#termField{
+			
+			width: 10rem;
+		}
+		
+		#cityField{
+			width: 8rem;
+		}
+		
+		#stateSelect{
+			width: 11rem;
+		}
+		
+		.marker {
+		  background-image: url('food-icon.png');
+		  background-size: cover;
+		  width: 25px;
+		  height: 25px;
+		  border-radius: 50%;
+		  cursor: pointer;
+		}
+
+		.mapboxgl-popup {
+		  max-width: 200px;
+		}
+
+		.mapboxgl-popup-content {
+		  text-align: center;
+		  font-family: 'Open Sans', sans-serif;
+		}
+
+		body{
+			margin: 0;
+			padding: 0;
+		}
+
+		#map{
+			top: 0;
+			bottom: 0;
+			display: none;
+			width: 1000px; 
+			height: 900px;
+			margin-left: 25%;
+			
+		}
+		
+		#prevButton{
+			margin-left: 40%;
+		}
+		.bottomButtons{
+			display: none;
+		}
+		
+		#adminTable{
+			margin-top: 40px;
+		}
+		#statusTxt{
+			margin-left: 25%;
+		}
+		#userField{
+			width: 11rem;
+			margin-left: 1%;
+		}
+		
+		#userFieldFav{
+			width: 11rem;
+			margin-left: 40%;
+		}
