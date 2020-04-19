@@ -34,7 +34,7 @@ let cityId;
 let result;
 // let map;
 
-/*const getFormData = (req, res) => {
+/* const getFormData = (req, res) => {
   if (!req.body.foodType || !req.body.city || !req.body.state) {
     return res.status(400).json({ error: 'Please enter all required information' });
   }
@@ -42,10 +42,10 @@ let result;
   foodType = req.body.foodType;
   city = req.body.city;
   state = req.body.state;
-  
+
   return;
-};*/
- const getFormData = (req, res) => {
+}; */
+const getFormData = (req, res) => {
   if (!req.body.foodType || !req.body.city || !req.body.state) {
     return res.status(400).json({ error: 'Please enter all required information' });
   }
@@ -69,14 +69,14 @@ let result;
 
   searchPromise.catch((err) => {
     console.log(err);
-     if (err.code === 11000) {
+    if (err.code === 11000) {
       return res.status(400).json({ error: 'Domo already exists.' });
     }
 
     return res.status(400).json({ error: 'An error occurred' });
   });
   return searchPromise;
-}; 
+};
 
 const search = (request, res) => {
   const req = request;
@@ -104,7 +104,7 @@ const search = (request, res) => {
       return response.json();
     })
     .then((cityJson) => {
-      console.log(cityJson.location_suggestions);
+      // console.log(cityJson.location_suggestions);
       cityJson.location_suggestions.forEach((cityParam) => {
         if (cityParam.state_code === state) {
           let name;
@@ -174,6 +174,7 @@ const search = (request, res) => {
             .then((json) => {
               result = json.restaurants;
 			  console.log(result);
+			  return res2.json({ restaurants: result });
               // console.log(this.result);
               /* if (result.length != 0) {
             mapboxgl.accessToken = 'pk.eyJ1IjoiYXhzNjIwNyIsImEiOiJjanUzMmw4N2owaXZsNDNwdnVpeWExYXlkIn0.9fWe9GvQAdJrx-MJFI3GAA';

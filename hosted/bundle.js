@@ -181,7 +181,9 @@ var SearchForm = function SearchForm(props) {
 
 
 var loadDataFromServer = function loadDataFromServer() {
+  console.log("run");
   sendAjax('GET', '/getData', null, function (data) {
+    console.log(data);
     /*ReactDOM.render(
     	<DomoList domos={data.domos} />, document.querySelector("#domos")
     );*/

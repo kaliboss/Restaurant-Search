@@ -114,7 +114,9 @@ const SearchForm = (props) => {
 };*/
 
 const loadDataFromServer = () => {
+	console.log("run");
 	sendAjax('GET', '/getData', null, (data) => {
+		console.log(data);
 		/*ReactDOM.render(
 			<DomoList domos={data.domos} />, document.querySelector("#domos")
 		);*/
