@@ -12,7 +12,6 @@ var handleSearch = function handleSearch(e) {
 
   console.log($("#searchForm").serialize());
   sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function () {
-    console.log("running");
     loadDataFromServer();
   });
   return false;
@@ -147,55 +146,91 @@ var SearchForm = function SearchForm(props) {
   }, "WV"), /*#__PURE__*/React.createElement("option", {
     value: "WY"
   }, "WY")), /*#__PURE__*/React.createElement("input", {
+    type: "hidden",
+    name: "_csrf",
+    value: props.csrf
+  }), /*#__PURE__*/React.createElement("input", {
     className: "btn btn-outline-success",
     type: "submit",
     value: "Search"
   }));
 };
-/*const DomoList = function(props) {
-	if(props.domos.length === 0) {
-		return (
-			<div className="domoList">
-				<h3 classname="emptyDomo">No Domos yet</h3>
-			</div>
-		);
-	};
-	
-	const domoNodes = props.domos.map(function(domo) {
-		return(
-			<div key={domo._id} className="domo">
-				<img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-				<h3 className="foodType"> Name: {domo.name} </h3>
-				<h3 className="city"> Age: {domo.age} </h3>
-				<h3 className="domoHeight"> Height: {domo.height} cm</h3>
-			</div>
-		);
-	});
-	
-	return(
-		<div className="domoList">
-			{domoNodes}
-		</div>
-	);
-};*/
 
+var SearchList = function SearchList(props) {
+  if (props.restaurants.length === 0) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "row"
+    }, "//", /*#__PURE__*/React.createElement("h3", {
+      classname: "emptyDomo"
+    }, "No Domos yet"));
+  }
+
+  ;
+  var searchNodes = props.restaurants.map(function (restaurant) {
+    //console.log(restaurant.restaurant.name);
+    return /*#__PURE__*/React.createElement("tr", {
+      key: restaurant.id
+    }, /*#__PURE__*/React.createElement("td", {
+      className: "foodType"
+    }, restaurant.restaurant.name, " "), /*#__PURE__*/React.createElement("td", {
+      className: "city"
+    }, restaurant.restaurant.location.address, " "), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
+      href: restaurant.restaurant.menu_url
+    }, "View menu on Zomato.com")));
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    id: "searchDisplay"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Address"), /*#__PURE__*/React.createElement("th", null, "Menu")), searchNodes)));
+};
 
 var loadDataFromServer = function loadDataFromServer() {
-  console.log("run");
   sendAjax('GET', '/getData', null, function (data) {
-    console.log(data);
-    /*ReactDOM.render(
-    	<DomoList domos={data.domos} />, document.querySelector("#domos")
-    );*/
+    //console.log(data);
+    ReactDOM.render( /*#__PURE__*/React.createElement(SearchList, {
+      restaurants: data.restaurants
+    }), document.querySelector("#tableDiv"));
+  });
+};
+/*const switchJson = (e) => {
+	e.preventDefault();
+	console.log($("#start").val());
+	if(e.target.id == "prevButton" && $("#start").val() != 0){
+		$("#start").value -= 20;
+	}
+			
+	else if(e.target.id == "nextButton" && $("#start").val() != 80){
+		$("#start").value += 20;
+	}
+	handleSearch();
+	loadDataFromServer();
+	
+	// may be used later so moving it out of render
+	<div className="search-row">
+				<form id="switchForm" name="switchForm" 
+					onSubmit={switchJson}
+					className="switchForm"
+				>
+					<input id = "prevButton" className="btn btn-outline-success bottomButtons" type="submit" value = "Previous Page" />
+					<input id = "nextButton" className="btn btn-outline-success bottomButtons" type="submit"value = "Next Page" />
+				</form>
+			</div> 
+}*/
+
+
+var setup = function setup(csrf) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, {
+    csrf: csrf
+  }), document.querySelector("#search"));
+};
+
+var getToken = function getToken() {
+  sendAjax('GET', '/getToken', null, function (result) {
+    setup(result.csrfToken);
   });
 };
 
-var setup = function setup() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, null), document.querySelector("#search"));
-};
-
 $(document).ready(function () {
-  setup();
+  getToken();
 });
 "use strict";
 

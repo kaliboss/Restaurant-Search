@@ -1,0 +1,7 @@
+next/prev
+map
+ads
+login
+favorites
+error codes/not found
+password change/encryption? (maybe)

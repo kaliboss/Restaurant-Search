@@ -24,6 +24,7 @@ class Url {
 }
 
 const searchPage = (req, res) => res.render('app');
+const searchPage2 = (req, res) => res.render('app2');
 
 // no need to store these on the database so storing in variables instead
 let foodType;
@@ -53,6 +54,7 @@ const getFormData = (req, res) => {
   foodType = req.body.foodType;
   city = req.body.city;
   state = req.body.state;
+  // start = req.body.startNum;
 
   const restaurantData = {
     foodType: req.body.foodType,
@@ -173,7 +175,7 @@ const search = (request, res) => {
             })
             .then((json) => {
               result = json.restaurants;
-			  console.log(result);
+			  // console.log(result);
 			  return res2.json({ restaurants: result });
               // console.log(this.result);
               /* if (result.length != 0) {
@@ -234,6 +236,8 @@ const search = (request, res) => {
     });
 };
 
+
 module.exports.formData = getFormData;
 module.exports.searchPage = searchPage;
+module.exports.searchPage2 = searchPage2;
 module.exports.search = search;
