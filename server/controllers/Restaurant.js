@@ -3,7 +3,7 @@ const models = require('../models');
 
 const { Restaurant } = models;
 
-
+// class for creating url to fetch
 class Url {
   constructor(entityId, q, start) {
     this.entityId = entityId;
@@ -23,7 +23,10 @@ class Url {
   }
 }
 
+// displays the app.handlebars page since the user is not logged in 
 const searchPage = (req, res) => res.render('app');
+
+// displays the app2.handlebars page since the user is logged in 
 const searchPage2 = (req, res) => res.render('app2');
 
 // no need to store these on the database so storing in variables instead
@@ -35,17 +38,7 @@ let cityId;
 let result;
 // let map;
 
-/* const getFormData = (req, res) => {
-  if (!req.body.foodType || !req.body.city || !req.body.state) {
-    return res.status(400).json({ error: 'Please enter all required information' });
-  }
-
-  foodType = req.body.foodType;
-  city = req.body.city;
-  state = req.body.state;
-
-  return;
-}; */
+// grabs the form data from the search form on the front page
 const getFormData = (req, res) => {
   if (!req.body.foodType || !req.body.city || !req.body.state) {
     return res.status(400).json({ error: 'Please enter all required information' });
@@ -72,7 +65,7 @@ const getFormData = (req, res) => {
   searchPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already exists.' });
+      return res.status(400).json({ error: 'Restaurant already exists.' });
     }
 
     return res.status(400).json({ error: 'An error occurred' });
@@ -80,8 +73,9 @@ const getFormData = (req, res) => {
   return searchPromise;
 };
 
+// grabs search data from the zomato API
 const search = (request, res) => {
-  const req = request;
+  // const req = request;
   const res2 = res;
   let url;
   let term = foodType;
@@ -112,11 +106,9 @@ const search = (request, res) => {
           let name;
           if (state !== 'NY') {
             name = `${city}, ${state}`;
-          }
-
-          // extra checks are needed for NY
-          // since the state code is formatted differently and new york city is a special case
-          else if (city.toLowerCase() === 'new york city') {
+          } else if (city.toLowerCase() === 'new york city') {
+            // extra checks are needed for NY
+            // since the state code is formatted differently and new york city is a special case
             city = 'New York City';
             name = `${city}, ${state}`;
           } else {
@@ -140,10 +132,8 @@ const search = (request, res) => {
             url = new Url(cityId, term, start);
             url = url.createUrl();
             // console.log(url);
-          }
-
-          // needed to check if name is real place with missing spaces in it
-          else {
+          } else {
+            // needed to check if name is real place with missing spaces in it
             cityId = cityJson.location_suggestions[0].id;
             // console.log(cityId);
             url = new Url(cityId, term, start);
@@ -165,7 +155,7 @@ const search = (request, res) => {
         });
 
         if (found) {
-        // fetch to get all displayed table info
+          // fetch to get all displayed table info
           fetch(url)
             .then((response) => {
               if (!response.ok) {
@@ -175,61 +165,9 @@ const search = (request, res) => {
             })
             .then((json) => {
               result = json.restaurants;
-			  // console.log(result);
-			  return res2.json({ restaurants: result });
+              // console.log(result);
+              return res2.json({ restaurants: result });
               // console.log(this.result);
-              /* if (result.length != 0) {
-            mapboxgl.accessToken = 'pk.eyJ1IjoiYXhzNjIwNyIsImEiOiJjanUzMmw4N2owaXZsNDNwdnVpeWExYXlkIn0.9fWe9GvQAdJrx-MJFI3GAA';
-
-            map = new mapboxgl.Map({
-              container: 'map',
-              style: 'mapbox://styles/mapbox/streets-v11',
-            });
-            map.setZoom(13);
-            map.setCenter([result[0].restaurant.location.longitude, result[0].restaurant.location.latitude]); // note the order - it's longitude,latitude - which is opposite of Google Maps
-            const thisScope = this;
-
-            // setting up mapbox api
-            const geojson = {
-              type: 'FeatureCollection',
-              features: [],
-            };
-
-            let i;
-            for (i = 0; i < result.length; i++) {
-              geojson.features[i] = {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [parseFloat(json.restaurants[i].restaurant.location.longitude), parseFloat(json.restaurants[i].restaurant.location.latitude)],
-                },
-                properties: {
-                  title: json.restaurants[i].restaurant.name,
-                  description: json.restaurants[i].restaurant.menu_url,
-                },
-              };
-            }
-
-            // console.log(geojson.features);
-            // add markers to map
-            geojson.features.forEach((marker) => {
-            // create a HTML element for each feature
-              const el = document.createElement('div');
-              el.className = 'marker';
-              // console.log(thisScope.map);
-
-              // make a marker for each feature and add to the map
-              new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(thisScope.map);
-
-              new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates)
-                .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                  .setHTML(`<h3>${marker.properties.title}</h3><a href="${marker.properties.description}">` + 'View Menu on Zomato.com' + '</a>'))
-                .addTo(thisScope.map);
-            });
-          } */
             });
         }
       }

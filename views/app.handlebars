@@ -13,23 +13,27 @@
   <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
   <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
   <div id="app">
 	<div class="myheader">
 		<h1 class="display-5">Restaurant Search</h1>
 		<a class = "topLinks" href = "/">Food Finder</a>
-		<a class = "topLinks" href = "admin.html">Favorites</a>
+		<a class = "topLinks" href = "/favorite">Favorites</a>
 		<a class = "topLinks" id = "logLink" href = "/login">Login</a>
 		<div class="underbar"></div>
 	</div>			
-	<div id="search" class="search-row">
+	<div class="search-row search">
 	</div>
-	<div id="tableDiv" class="container">
+	<div class="tableDiv">
 		
 	</div> <!-- end container -->	
 	<div id='map'>
+	</div>
+	<div class="sideAd">
+	</div>
+	<div class="bannerAd">
 	</div>
   </div>
   <script src="/assets/bundle.js"></script>

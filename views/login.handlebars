@@ -9,13 +9,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body> 
-  <nav>
-    <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
-  </nav>
-  <section id="content"></section>
+	<div class="myHeader">
+		<h1 class="display-5">Restaurant Search</h1>
+		<a class = "topLinks" href = "/">Food Finder</a>
+		<a class = "topLinks" href = "/favorite">Favorites</a>
+		<a class = "topLinks" id = "logLink" href = "/login">Login</a>
+		<div class="underbar"></div>
+	</div>
+	<div class="subHeader">
+		<nav>
+			<span class="navlink"><a id="loginButton" class="topLinks loginButtons" href="/login">Login</a></span>
+			<span class="navlink"><a id="signupButton" class="topLinks loginButtons" href="/signup">Sign up</a></span>
+			<div class="underbar"></div>
+		</nav>
+	</div>
+	<div id="loginContent">
+		<p class = "errorMessage"></p>
+		<section id="content"></section>
+	</div>
   <script src="/assets/loginBundle.js"></script>
 </body>
 </html>

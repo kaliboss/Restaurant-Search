@@ -1,3 +1,4 @@
+// method for stopping user from going to certain pages if they aren't logged in
 const requiresLogin = (req, res, next) => {
   if (!req.session.account) {
     return res.redirect('/');
@@ -5,6 +6,7 @@ const requiresLogin = (req, res, next) => {
   return next();
 };
 
+// method for stopping user from going to certain pages if they are logged in
 const requiresLogout = (req, res, next) => {
   if (req.session.account) {
     return res.redirect('/search2');
@@ -12,6 +14,7 @@ const requiresLogout = (req, res, next) => {
   return next();
 };
 
+// method for stopping user from going to certain pages if they aren't using https
 const requiresSecure = (req, res, next) => {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(`https://${req.hostname}${req.url}`);
@@ -19,6 +22,7 @@ const requiresSecure = (req, res, next) => {
   return next();
 };
 
+// method for bypassing the secure check when in production mode
 const bypassSecure = (req, res, next) => {
   next();
 };

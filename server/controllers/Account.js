@@ -2,15 +2,18 @@ const models = require('../models');
 
 const { Account } = models;
 
+// displays the login.handlebars page
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+// method for logging the user out and bringing them back to the logged out main page
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
 
+// method for creating the login page and checking for missing values
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -33,6 +36,8 @@ const login = (request, response) => {
   });
 };
 
+
+// method for creating the signup page and checking for missing values
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -77,6 +82,7 @@ const signup = (request, response) => {
   });
 };
 
+// method for getting the current csrf token
 const getToken = (request, response) => {
   const req = request;
   const res = response;

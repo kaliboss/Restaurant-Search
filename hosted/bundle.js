@@ -1,10 +1,13 @@
 "use strict";
 
+var idNum = 0;
+var csrfToken; // method for getting the search form data to fetch
+
 var handleSearch = function handleSearch(e) {
-  e.preventDefault(); //$("#domoMessage").animate({width:'hide'},350);
+  e.preventDefault();
 
   if ($("#foodType").val() == '' || $("#city").val() == '' || $("#stateSelect").val() == '') {
-    //handleError("Please enter all required fields");
+    handleError("Please enter all required fields");
     return false;
   } //let serializedData = $("#searchForm").serialize();
   //serializedData += "&"$("#stateSelect").val();
@@ -12,13 +15,27 @@ var handleSearch = function handleSearch(e) {
 
   console.log($("#searchForm").serialize());
   sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function () {
+    handleError("");
     loadDataFromServer();
   });
   return false;
-};
+}; // method for getting the proper form to send
+
+
+var handleFavorite = function handleFavorite(e) {
+  e.preventDefault(); //let serializedData = $("#searchForm").serialize();
+  //serializedData += "&"$("#stateSelect").val();
+
+  var currentId = "#" + e.target.id;
+  console.log($(currentId).serialize());
+  sendAjax('POST', $(currentId).attr("action"), $(currentId).serialize(), function () {});
+  return false;
+}; // method for creating the search form to display
+
 
 var SearchForm = function SearchForm(props) {
-  return /*#__PURE__*/React.createElement("form", {
+  csrfToken = props.csrf;
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", {
     id: "searchForm",
     name: "searchForm",
     onSubmit: handleSearch,
@@ -153,42 +170,100 @@ var SearchForm = function SearchForm(props) {
     className: "btn btn-outline-success",
     type: "submit",
     value: "Search"
+  })), /*#__PURE__*/React.createElement("p", {
+    className: "errorMessage"
   }));
-};
+}; // method for creating the search results to display
+
 
 var SearchList = function SearchList(props) {
   if (props.restaurants.length === 0) {
     return /*#__PURE__*/React.createElement("div", {
       className: "row"
-    }, "//", /*#__PURE__*/React.createElement("h3", {
-      classname: "emptyDomo"
-    }, "No Domos yet"));
+    });
   }
 
   ;
   var searchNodes = props.restaurants.map(function (restaurant) {
     //console.log(restaurant.restaurant.name);
+    idNum = idNum + 1;
     return /*#__PURE__*/React.createElement("tr", {
       key: restaurant.id
-    }, /*#__PURE__*/React.createElement("td", {
+    }, /*#__PURE__*/React.createElement("form", {
+      id: "favoriteForm".concat(idNum),
+      name: "favoriteForm".concat(idNum),
+      onSubmit: handleFavorite,
+      action: "/favorite",
+      method: "POST",
+      className: "favoriteForm"
+    }), /*#__PURE__*/React.createElement("td", {
       className: "foodType"
-    }, restaurant.restaurant.name, " "), /*#__PURE__*/React.createElement("td", {
+    }, restaurant.restaurant.name, " ", /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      form: "favoriteForm".concat(idNum),
+      name: "name",
+      value: restaurant.restaurant.name
+    }), " "), /*#__PURE__*/React.createElement("td", {
       className: "city"
-    }, restaurant.restaurant.location.address, " "), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
+    }, restaurant.restaurant.location.address, " ", /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      form: "favoriteForm".concat(idNum),
+      name: "address",
+      value: restaurant.restaurant.location.address
+    }), " "), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("a", {
       href: restaurant.restaurant.menu_url
-    }, "View menu on Zomato.com")));
+    }, "View menu on Zomato.com"), " ", /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      form: "favoriteForm".concat(idNum),
+      name: "_csrf",
+      value: csrfToken
+    }), " ", /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      form: "favoriteForm".concat(idNum),
+      name: "menu",
+      value: restaurant.restaurant.menu_url
+    }), "  "), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("input", {
+      type: "image",
+      value: "submit",
+      form: "favoriteForm".concat(idNum),
+      src: "/assets/img/favorite.png",
+      alt: "favorite button",
+      height: "20",
+      width: "20"
+    }), " "));
   });
   return /*#__PURE__*/React.createElement("div", {
     id: "searchDisplay"
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Address"), /*#__PURE__*/React.createElement("th", null, "Menu")), searchNodes)));
-};
+}; // method for creating the side ad to display
+
+
+var SideAd = function SideAd() {
+  return /*#__PURE__*/React.createElement("img", {
+    src: "/assets/img/sideAd.png",
+    className: "sideImg"
+  });
+}; // method for creating the banner ad to display
+
+
+var BannerAd = function BannerAd() {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    className: "close"
+  }), /*#__PURE__*/React.createElement("img", {
+    src: "/assets/img/bannerAd.png",
+    className: "bannerImg"
+  }));
+}; // method for rendering the DOM elements
+
 
 var loadDataFromServer = function loadDataFromServer() {
   sendAjax('GET', '/getData', null, function (data) {
     //console.log(data);
     ReactDOM.render( /*#__PURE__*/React.createElement(SearchList, {
       restaurants: data.restaurants
-    }), document.querySelector("#tableDiv"));
+    }), document.querySelector(".tableDiv"));
+    ReactDOM.render( /*#__PURE__*/React.createElement(SideAd, null), document.querySelector(".sideAd"));
   });
 };
 /*const switchJson = (e) => {
@@ -215,36 +290,42 @@ var loadDataFromServer = function loadDataFromServer() {
 				</form>
 			</div> 
 }*/
+// method for rendering the DOM elements and adding onClicks
 
 
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, {
     csrf: csrf
-  }), document.querySelector("#search"));
-};
+  }), document.querySelector(".search"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(BannerAd, null), document.querySelector(".bannerAd"));
+  document.querySelector(".close").addEventListener("click", function () {
+    document.querySelector(".bannerAd").style.display = "none";
+  });
+}; // method for getting the csrf token being used
+
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
     setup(result.csrfToken);
   });
-};
+}; // method for preparing the page right after it loads
+
 
 $(document).ready(function () {
   getToken();
 });
 "use strict";
 
+// method for writing error messages to screen
 var handleError = function handleError(message) {
-  $("#errorMessage").text(message);
-  $("#domoMessage").animate({
-    width: 'toggle'
-  }, 350);
-};
+  $(".errorMessage").text(message);
+}; // method for redirecting to correct url
+
 
 var redirect = function redirect(response) {
-  //$("domoMessage").animate({width:'hide'},350);
   window.location = response.redirect;
-};
+}; // method for sending Ajax call
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({
@@ -255,7 +336,8 @@ var sendAjax = function sendAjax(type, action, data, success) {
     dataType: "json",
     success: success,
     error: function error(xhr, status, _error) {
-      var messageObj = JSON.parse(xhr.responseText); //handleError(messageObj.error);
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
     }
   });
 };

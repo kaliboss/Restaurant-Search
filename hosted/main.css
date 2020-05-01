@@ -1,126 +1,284 @@
 /* .myheader grabbed from Bootstrap's jumbotron example - https://getbootstrap.com/docs/4.0/examples/jumbotron/ */
-		.myheader{
-			background-color: white;
-			padding-left: 2rem;
-			border-bottom: 1px solid black;
-		}
-		
-		input.form-control{
-			display: inline-block;
-			margin-right:1rem;
-		}
-		
-		select.form-control{
-			display: inline-block;
-			margin-right:1rem;
-		}
-		.search-row{
-			padding-top:1rem;
-			margin-bottom:1rem;
-			padding-bottom:1rem;
-			background-color: white;
-		}
-		
-		.display-5{
-			display: inline;
-		}
-		
-		.topLinks:link, .topLinks:visited{
-			margin-left: 20%;
-			text-decoration: none;
-			color: black;
-			font-size: 1.2em;
-			background: linear-gradient(0deg, currentcolor, currentcolor) bottom center no-repeat;
-			background-size: 0px 3px;
-			transition: 0.5s;
-		}
-		
-		.topLinks:hover {
-			background-size: 100% 3px;
-		}
-		
-		#app{
-			background-color: #e9ecef;
-		}
-		
-		.container{
-			background-color: white;
-		}
-		
-		#termField{
-			
-			width: 10rem;
-		}
-		
-		#cityField{
-			width: 8rem;
-		}
-		
-		#stateSelect{
-			width: 11rem;
-		}
-		
-		.marker {
-		  background-image: url('food-icon.png');
-		  background-size: cover;
-		  width: 25px;
-		  height: 25px;
-		  border-radius: 50%;
-		  cursor: pointer;
-		}
+.myHeader{
+	background-color: white;
+	padding-left: 2rem;
+	border-bottom: 1px solid black;
+}
 
-		.mapboxgl-popup {
-		  max-width: 200px;
-		}
+input.form-control{
+	display: inline-block;
+	margin-right:1rem;
+}
 
-		.mapboxgl-popup-content {
-		  text-align: center;
-		  font-family: 'Open Sans', sans-serif;
-		}
+select.form-control{
+	display: inline-block;
+	margin-right:1rem;
+}
+.search-row{
+	padding-top:1rem;
+	margin-bottom:1rem;
+	padding-bottom:1rem;
+	background-color: white;
+}
 
-		body{
-			margin: 0;
-			padding: 0;
-		}
+.display-5{
+	display: inline;
+}
 
-		#map{
-			top: 0;
-			bottom: 0;
-			display: none;
-			width: 1000px; 
-			height: 900px;
-			margin-left: 25%;
-			
-		}
-		
-		#prevButton{
-			margin-left: 40%;
-		}
-		.bottomButtons{
-			display: none;
-		}
-		
-		#adminTable{
-			margin-top: 40px;
-		}
-		#statusTxt{
-			margin-left: 25%;
-		}
-		#userField{
-			width: 11rem;
-			margin-left: 1%;
-		}
-		
-		#userFieldFav{
-			width: 11rem;
-			margin-left: 40%;
-		}
-		
-		table{
-			margin: 0 auto;
-			font-size: 14pt;
-		}
-		
-		tr:nth-child(even){
-			background-color: #dddddd;
-		}
+.topLinks:link, .topLinks:visited{
+	margin-left: 20%;
+	text-decoration: none;
+	color: black;
+	font-size: 1.2em;
+	background: linear-gradient(0deg, currentcolor, currentcolor) bottom center no-repeat;
+	background-size: 0px 3px;
+	transition: 0.5s;
+}
+
+.topLinks:hover {
+	background-size: 100% 3px;
+}
+
+#loginButton {
+	margin-left: 36.5%;
+}
+
+#app{
+	background-color: #e9ecef;
+	min-height: 965px;
+}
+
+.tableDiv{
+	background-color: white;
+	display: inline-block;
+	padding-right: 15px;
+    padding-left: 15px;
+	margin-right: auto;
+	vertical-align: top;
+	margin-left: 25%;
+}
+
+.bannerAd {
+  margin: auto;
+  position: fixed;
+  margin: auto;
+  margin-left: 25%;
+  bottom: 0;
+  z-index: 2;
+  border: black solid 2px;
+}
+
+#termField{
+	
+	width: 10rem;
+}
+
+#cityField{
+	width: 8rem;
+}
+
+#stateSelect{
+	width: 11rem;
+}
+
+.marker {
+  background-image: url('food-icon.png');
+  background-size: cover;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+}
+
+#map{
+	top: 0;
+	bottom: 0;
+	display: none;
+	width: 1000px; 
+	height: 900px;
+	margin-left: 25%;
+	
+}
+
+#prevButton{
+	margin-left: 40%;
+}
+.bottomButtons{
+	display: none;
+}
+
+#adminTable{
+	margin-top: 40px;
+}
+#statusTxt{
+	margin-left: 25%;
+}
+#userField{
+	width: 11rem;
+	margin-left: 1%;
+}
+
+#userFieldFav{
+	width: 11rem;
+	margin-left: 40%;
+}
+
+table{
+	margin: 0 auto;
+	font-size: 14pt;
+}
+
+#favoriteTable{
+	margin-top:1rem;
+}
+
+tr:nth-child(even){
+	background-color: #dddddd;
+}
+
+.sideImg{
+	width: 100%;
+}
+
+.sideAd{
+	width: 10.5%;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 10%;
+	padding-top:5rem;
+}
+
+/* close button code from:
+https://codepen.io/brissmyr/pen/egidw
+*/
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+#loginContent {
+	margin: auto;
+	margin-top: 12rem;
+	width: 50%;
+	text-align: center;
+	font-size: 25pt;
+}
+
+.errorMessage {
+	font-weight: bold;
+    color: red;
+}
+
+@media (min-width: 576px) {
+  .tableDiv {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tableDiv {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .tableDiv {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .tableDiv {
+    max-width: 1140px;
+  }
+}
+
+@media (max-width: 1134px){
+  .tableDiv {
+    margin-left: 0;
+  }
+  .topLinks:link, .topLinks:visited{
+	margin-left: 15%;
+  }
+  .sideAd{
+	margin-left: 0;
+  }
+  .bannerAd {
+	margin-left: 10%;
+  }
+}
+
+@media (max-width: 1272px)and (min-width: 1134px){
+  .tableDiv {
+    margin-left: 2%;
+  }
+  .topLinks:link, .topLinks:visited{
+	margin-left: 15%;
+  }
+  .sideAd{
+	margin-left: 5%;
+  }  
+  .bannerAd {
+	margin-left: 10%;
+  }
+}
+
+@media (max-width: 1472px) and (min-width: 1255px){
+  .tableDiv {
+    margin-left: 5%;
+  }
+  .topLinks:link, .topLinks:visited{
+	margin-left: 15%;
+  }
+}
+
+@media (max-width: 1572px) and (min-width: 1472px){
+  .tableDiv {
+    margin-left: 15%;
+  }
+}
+
+@media (max-width: 1716px) and (min-width: 1572px) {
+  .tableDiv {
+    margin-left: 20%;
+  }
+}

@@ -8,6 +8,7 @@ const iterations = 10000;
 const saltLength = 64;
 const keyLength = 64;
 
+// make model to store form data
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -36,6 +37,7 @@ AccountSchema.statics.toAPI = (doc) => ({
   _id: doc._id,
 });
 
+// method for encrypting and validating password
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 

@@ -4,7 +4,7 @@ var handleLogin = function handleLogin(e) {
   e.preventDefault();
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
-    //handleError("RAWR! Username or password is empty");
+    handleError("Username or password is empty");
     return false;
   }
 
@@ -15,17 +15,14 @@ var handleLogin = function handleLogin(e) {
 
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
-  $("#domoMessage").animate({
-    width: 'hide'
-  }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    //handleError("RAWR! All fields are required");
+    handleError("All fields are required");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    //handleError("RAWR! Passwords do not match");
+    handleError("Passwords do not match");
     return false;
   }
 
@@ -43,14 +40,14 @@ var LoginWindow = function LoginWindow(props) {
     className: "mainForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "username"
-  }, "Username: "), /*#__PURE__*/React.createElement("input", {
+  }, "Username: "), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "user",
     type: "text",
     name: "username",
     placeholder: "username"
-  }), /*#__PURE__*/React.createElement("label", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass"
-  }, "Password: "), /*#__PURE__*/React.createElement("input", {
+  }, "Password: "), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
@@ -59,7 +56,7 @@ var LoginWindow = function LoginWindow(props) {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
-  }), /*#__PURE__*/React.createElement("input", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     className: "formSubmit",
     type: "submit",
     value: "Sign in"
@@ -76,26 +73,26 @@ var SignupWindow = function SignupWindow(props) {
     className: "mainForm"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "username"
-  }, "Username: "), /*#__PURE__*/React.createElement("input", {
+  }, "Username:"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "user",
     type: "text",
     name: "username",
     placeholder: "username"
-  }), /*#__PURE__*/React.createElement("label", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass"
-  }, "Password: "), /*#__PURE__*/React.createElement("input", {
+  }, "Password: "), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
     placeholder: "password"
-  }), /*#__PURE__*/React.createElement("label", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass2"
-  }, "Password: "), /*#__PURE__*/React.createElement("input", {
+  }, "Password: "), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     id: "pass2",
     type: "password",
     name: "pass2",
     placeholder: "retype password"
-  }), /*#__PURE__*/React.createElement("input", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
@@ -145,17 +142,16 @@ $(document).ready(function () {
 });
 "use strict";
 
+// method for writing error messages to screen
 var handleError = function handleError(message) {
-  $("#errorMessage").text(message);
-  $("#domoMessage").animate({
-    width: 'toggle'
-  }, 350);
-};
+  $(".errorMessage").text(message);
+}; // method for redirecting to correct url
+
 
 var redirect = function redirect(response) {
-  //$("domoMessage").animate({width:'hide'},350);
   window.location = response.redirect;
-};
+}; // method for sending Ajax call
+
 
 var sendAjax = function sendAjax(type, action, data, success) {
   $.ajax({
@@ -166,7 +162,8 @@ var sendAjax = function sendAjax(type, action, data, success) {
     dataType: "json",
     success: success,
     error: function error(xhr, status, _error) {
-      var messageObj = JSON.parse(xhr.responseText); //handleError(messageObj.error);
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
     }
   });
 };

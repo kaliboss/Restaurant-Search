@@ -1,13 +1,14 @@
+// method for writing error messages to screen
 const handleError = (message) => {
-	$("#errorMessage").text(message);
-	$("#domoMessage").animate({width:'toggle'},350);
+	$(".errorMessage").text(message);
 };
 
+// method for redirecting to correct url
 const redirect = (response) => {
-	//$("domoMessage").animate({width:'hide'},350);
 	window.location = response.redirect;
 };
 
+// method for sending Ajax call
 const sendAjax = (type, action, data, success) => {
 	$.ajax({
 		cache: false,
@@ -18,7 +19,7 @@ const sendAjax = (type, action, data, success) => {
 		success: success,
 		error: function(xhr, status, error) {
 			var messageObj = JSON.parse(xhr.responseText);
-			//handleError(messageObj.error);
+			handleError(messageObj.error);
 		}
 	});
 };
