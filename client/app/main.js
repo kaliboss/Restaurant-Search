@@ -9,9 +9,7 @@ const handleSearch = (e) => {
 		handleError("Please enter all required fields");
 		return false;
 	}
-	//let serializedData = $("#searchForm").serialize();
-	//serializedData += "&"$("#stateSelect").val();
-	console.log($("#searchForm").serialize());
+
 	sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function() {
 		handleError("");
 		loadDataFromServer();

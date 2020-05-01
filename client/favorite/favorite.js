@@ -4,10 +4,8 @@ let idNum = 0;
 const handleFavorite = (e) => {
 	e.preventDefault();
 	
-	//let serializedData = $("#searchForm").serialize();
-	//serializedData += "&"$("#stateSelect").val();
 	let currentId = "#" + e.target.id;
-	console.log($(currentId).serialize());
+
 	sendAjax('POST', $(currentId).attr("action"), $(currentId).serialize(), function() {
 	});
 	

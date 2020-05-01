@@ -23,10 +23,10 @@ class Url {
   }
 }
 
-// displays the app.handlebars page since the user is not logged in 
+// displays the app.handlebars page since the user is not logged in
 const searchPage = (req, res) => res.render('app');
 
-// displays the app2.handlebars page since the user is logged in 
+// displays the app2.handlebars page since the user is logged in
 const searchPage2 = (req, res) => res.render('app2');
 
 // no need to store these on the database so storing in variables instead

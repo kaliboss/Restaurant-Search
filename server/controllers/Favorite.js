@@ -16,12 +16,11 @@ const favoritePage = (req, res) => {
 
 // method for adding favorites to the user's account when button is clicked
 const addFavorite = (req, res) => {
-
   const favoriteData = {
     name: req.body.name,
     address: req.body.address,
     menu: req.body.menu,
-	csrf: req.body._csrf,
+    csrf: req.body._csrf,
     owner: req.session.account._id,
   };
 
@@ -43,10 +42,10 @@ const addFavorite = (req, res) => {
   return favoritePromise;
 };
 
-const deleteFavorite = (req, res) => {
-	Favorite.FavoriteModel.findOneAndRemove({ address: req.body.address}, function(err) {
-	});
-}
+const deleteFavorite = (req) => {
+  Favorite.FavoriteModel.findOneAndRemove({ address: req.body.address }, () => {
+  });
+};
 
 // grabs the user's favorites from the mongo database
 const getFavorites = (request, response) => {
